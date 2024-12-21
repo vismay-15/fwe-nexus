@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/vismay-15.github.io/fwe-nexus/static/css/main.29c53fd0.css",
+    "main.js": "/vismay-15.github.io/fwe-nexus/static/js/main.435d260f.js",
+    "static/js/453.ae996a1c.chunk.js": "/vismay-15.github.io/fwe-nexus/static/js/453.ae996a1c.chunk.js",
+    "static/media/fwe-nexus.jpg": "/vismay-15.github.io/fwe-nexus/static/media/fwe-nexus.3ec122f74524034396a1.jpg",
+    "index.html": "/vismay-15.github.io/fwe-nexus/index.html",
+    "main.29c53fd0.css.map": "/vismay-15.github.io/fwe-nexus/static/css/main.29c53fd0.css.map",
+    "main.435d260f.js.map": "/vismay-15.github.io/fwe-nexus/static/js/main.435d260f.js.map",
+    "453.ae996a1c.chunk.js.map": "/vismay-15.github.io/fwe-nexus/static/js/453.ae996a1c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.29c53fd0.css",
+    "static/js/main.435d260f.js"
+  ]
+}
