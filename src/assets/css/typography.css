@@ -1,0 +1,28 @@
+.fs-36px {
+  font-size: 36px;
+  line-height: 44px;
+}
+
+.fs-30px {
+  font-size: 30px;
+  line-height: 40px;
+}
+
+.fs-18px{
+  font-size: 18px;
+  line-height: 30px;
+}
+
+.fs-16px {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.fs-14px {
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.text-justify {
+  text-align: justify;
+}
