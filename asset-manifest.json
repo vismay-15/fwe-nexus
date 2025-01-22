@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/fwe-nexus/static/css/main.29c53fd0.css",
-    "main.js": "/fwe-nexus/static/js/main.03d9fc04.js",
+    "main.css": "/fwe-nexus/static/css/main.c53b1a43.css",
+    "main.js": "/fwe-nexus/static/js/main.0cfa3a0e.js",
     "static/js/453.ae996a1c.chunk.js": "/fwe-nexus/static/js/453.ae996a1c.chunk.js",
     "static/media/fwe-nexus.jpg": "/fwe-nexus/static/media/fwe-nexus.3ec122f74524034396a1.jpg",
     "index.html": "/fwe-nexus/index.html",
-    "main.29c53fd0.css.map": "/fwe-nexus/static/css/main.29c53fd0.css.map",
-    "main.03d9fc04.js.map": "/fwe-nexus/static/js/main.03d9fc04.js.map",
+    "main.c53b1a43.css.map": "/fwe-nexus/static/css/main.c53b1a43.css.map",
+    "main.0cfa3a0e.js.map": "/fwe-nexus/static/js/main.0cfa3a0e.js.map",
     "453.ae996a1c.chunk.js.map": "/fwe-nexus/static/js/453.ae996a1c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.29c53fd0.css",
-    "static/js/main.03d9fc04.js"
+    "static/css/main.c53b1a43.css",
+    "static/js/main.0cfa3a0e.js"
   ]
 }
