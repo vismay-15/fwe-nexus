@@ -14,14 +14,14 @@ export const Dashboard = () => {
         defaultActiveKey="food"
         className="mb-3"
       >
-          <Tab eventKey="food" title="Food">
-            Tab content for Food
-          </Tab>
           <Tab eventKey="water" title="Water">
             Tab content for Water
           </Tab>
           <Tab eventKey="energy" title="Enegry">
             Tab content for Energy
+          </Tab>
+          <Tab eventKey="food" title="Food">
+            Tab content for Food
           </Tab>
         </Tabs>
       </div>

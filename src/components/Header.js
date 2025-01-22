@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import "../assets/css/header.css";
 
 export const Header = () => {
   return (
@@ -7,22 +8,22 @@ export const Header = () => {
       <div className="container">
         <div className="d-flex justify-content-between align-items-center py-3">
           <div className="logo-wrap">
-            <h2 className="playfair-display-semibold fs-30">FWE Nexus</h2>
+            <h2 className="playfair-display-semibold fs-30">WEF Nexus</h2>
           </div>
-          <div className="menu-wrap ">
+          <div className="menu-wrap">
             <ul className="list-unstyled d-flex mb-0">
               <li className="me-3">
-                <Link to="/" className="fs-16px fc-gray text-decoration-none">
+                <NavLink to="/" className={({ isActive }) => (isActive ? "active fs-16px open-sans-normal text-decoration-none fc-black" : "fs-16px open-sans-normal text-decoration-none fc-gray")}>
                   Home
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
-                  to="/stackholders"
-                  className="fs-16px fc-gray text-decoration-none"
+                <NavLink
+                  to="/stakeholders"
+                  className={({ isActive }) => (isActive ? "active fs-16px open-sans-normal text-decoration-none fc-black" : "fs-16px open-sans-normal text-decoration-none fc-gray")}
                 >
-                  Stackholders
-                </Link>
+                  Stakeholders
+                </NavLink>
               </li>
             </ul>
           </div>

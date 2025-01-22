@@ -4,7 +4,7 @@ import { locations } from "../../locations";
 import { PageTitle } from "../../components/PageTitle";
 import "./style.css";
 
-export const Stackholders = () => {
+export const Stakeholders = () => {
   const convertToAddress = ([lat, lon]) => {
     return `${lat}, ${lon}`;
   };
@@ -13,7 +13,7 @@ export const Stackholders = () => {
     <>
       <div className="containheader">
         <PageTitle className="playfair-display-semibold text-center mb-4">
-          Stackholders on food water enegry nexus - Europe region
+          Stakeholders on water enegry food nexus - Europe region
         </PageTitle>
         <div className="map-container">
           <MapContainer center={[locations[0][0], locations[0][1]]} zoom={13}>

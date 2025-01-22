@@ -1,5 +1,5 @@
 import { Dashboard } from "./pages/dashboard";
-import { Stackholders } from "./pages/stackholders";
+import { Stakeholders } from "./pages/stakeholders";
 import { Landing } from "./pages/landing";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import "./assets/css/style.css";
@@ -14,7 +14,7 @@ function App() {
           <Routes>
             <Route path="/" exact element={<Landing />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/stackholders" element={<Stackholders />} />
+            <Route path="/stakeholders" element={<Stakeholders />} />
           </Routes>
         </main>
       </Router>
