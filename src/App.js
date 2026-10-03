@@ -11,10 +11,19 @@ import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 
+const TITLES = {
+  "/": "WEF Nexus Europe | Water–Energy–Food Nexus Research by Vismay Loliyaniya",
+  "/research": "The research | WEF Nexus Europe",
+  "/challenges": "Challenges and evidence | WEF Nexus Europe",
+  "/stakeholders": "Stakeholder map | WEF Nexus Europe",
+  "/contact": "Contact Vismay Loliyaniya | WEF Nexus Europe",
+};
+
 const ScrollToTop = () => {
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    document.title = TITLES[pathname] || TITLES["/"];
   }, [pathname]);
   return null;
 };
