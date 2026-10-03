@@ -653,3 +653,25 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* single floating hover card */
+.hover-float {
+  position: absolute;
+  z-index: 950;
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-m);
+  box-shadow: 0 8px 24px rgba(20, 39, 58, 0.18);
+  color: var(--ink);
+  pointer-events: none;
+}
+
+/* hover feedback on the marker itself, without swapping its icon */
+.sh-marker svg {
+  transition: transform 0.12s ease-out;
+  transform-origin: center;
+}
+
+.sh-marker:hover svg {
+  transform: scale(1.18);
+}
