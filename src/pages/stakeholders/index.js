@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { MapContainer, TileLayer, Marker, Tooltip, Polyline, ZoomControl, useMap, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -102,44 +102,6 @@ const FitTo = ({ points, trigger }) => {
   return null;
 };
 
-// Opens the hover card on whichever side of the marker has room.
-const SmartTooltip = ({ coords, children }) => {
-  const map = useMap();
-  const [, refresh] = useState(0);
-  useMapEvents({ moveend: () => refresh((n) => n + 1), resize: () => refresh((n) => n + 1) });
-  const pt = map.latLngToContainerPoint(coords);
-  const size = map.getSize();
-  // The card is about 430px tall and 320px wide.
-  const CARD_H = 440;
-  let direction;
-  let offset;
-  if (pt.y > CARD_H) {
-    direction = "top";
-    offset = [0, -6];
-  } else if (size.y - pt.y > CARD_H) {
-    direction = "bottom";
-    offset = [0, 6];
-  } else if (pt.x > size.x / 2) {
-    direction = "left";
-    offset = [-8, 0];
-  } else {
-    direction = "right";
-    offset = [8, 0];
-  }
-  if ((direction === "top" || direction === "bottom") && pt.x < 170) {
-    direction = "right";
-    offset = [8, 0];
-  } else if ((direction === "top" || direction === "bottom") && pt.x > size.x - 170) {
-    direction = "left";
-    offset = [-8, 0];
-  }
-  return (
-    <Tooltip key={direction} direction={direction} offset={offset} opacity={1} className="hover-tip">
-      {children}
-    </Tooltip>
-  );
-};
-
 // Page scrolling passes over the map until the visitor clicks it;
 // then the mouse wheel zooms, until the pointer leaves the map.
 const WheelOnClick = ({ onChange }) => {
@@ -165,6 +127,47 @@ const FlyTo = ({ target }) => {
 };
 
 /* ---------------------------------------------------------------- */
+
+// One hover card for the whole map, positioned next to the hovered marker.
+// Only one can exist, so cards can never pile up.
+const FloatingCard = ({ map, s }) => {
+  const ref = useRef(null);
+  const [, redraw] = useState(0);
+  const [h, setH] = useState(400);
+  useEffect(() => {
+    if (!map) return undefined;
+    const on = () => redraw((n) => n + 1);
+    map.on("move zoom resize", on);
+    return () => map.off("move zoom resize", on);
+  }, [map]);
+  useLayoutEffect(() => {
+    if (ref.current) setH(ref.current.offsetHeight);
+  }, [s]);
+  if (!map || !s) return null;
+  const pt = map.latLngToContainerPoint(s.coords);
+  const size = map.getSize();
+  const W = Math.min(320, size.x - 16);
+  const GAP = 22;
+  let left;
+  let top;
+  if (pt.y - GAP - h >= 8) {
+    top = pt.y - GAP - h;
+    left = pt.x - W / 2;
+  } else if (pt.y + GAP + h <= size.y - 8) {
+    top = pt.y + GAP;
+    left = pt.x - W / 2;
+  } else {
+    top = pt.y - h / 2;
+    left = pt.x > size.x / 2 ? pt.x - GAP - W : pt.x + GAP;
+  }
+  left = Math.max(8, Math.min(left, size.x - W - 8));
+  top = Math.max(8, Math.min(top, size.y - h - 8));
+  return (
+    <div className="hover-float" ref={ref} style={{ left, top, width: W }} role="tooltip">
+      <HoverCard s={s} />
+    </div>
+  );
+};
 
 const HoverCard = ({ s }) => (
   <div className="hover-card">
@@ -318,7 +321,9 @@ export const Stakeholders = () => {
   const [roleFilter, setRoleFilter] = useState("");
   const [showNetwork, setShowNetwork] = useState(true);
   const [streetMap, setStreetMap] = useState(false);
-  const [hovered, setHovered] = useState(null);
+  const [hover, setHover] = useState(null); // { id, from: "map" | "list" }
+  const [map, setMap] = useState(null);
+  const hovered = hover?.id ?? null;
   const [selectedId, setSelectedId] = useState(null);
   const [activeProject, setActiveProject] = useState(null);
   const [wheelOn, setWheelOn] = useState(false);
@@ -377,7 +382,7 @@ export const Stakeholders = () => {
 
   const select = (id) => {
     setSelectedId(id);
-    setHovered(null);
+    setHover(null);
   };
 
   useEffect(() => {
@@ -490,10 +495,10 @@ export const Stakeholders = () => {
               <li key={s.id}>
                 <button
                   className={`sh-list__item ${selectedId === s.id ? "is-selected" : ""}`}
-                  onMouseEnter={() => setHovered(s.id)}
-                  onMouseLeave={() => setHovered(null)}
-                  onFocus={() => setHovered(s.id)}
-                  onBlur={() => setHovered(null)}
+                  onMouseEnter={() => setHover({ id: s.id, from: "list" })}
+                  onMouseLeave={() => setHover(null)}
+                  onFocus={() => setHover({ id: s.id, from: "list" })}
+                  onBlur={() => setHover(null)}
                   onClick={() => select(s.id)}
                 >
                   <NexusGlyph sectors={s.sectors} type={s.type} size={30} />
@@ -516,6 +521,7 @@ export const Stakeholders = () => {
 
         <div className="explorer__map">
           <MapContainer
+            ref={setMap}
             center={[51, 10]}
             zoom={4}
             minZoom={3}
@@ -566,7 +572,8 @@ export const Stakeholders = () => {
               })}
 
             {visible.map((s) => {
-              const state = selectedId === s.id ? "selected" : hovered === s.id ? "hover" : "idle";
+              const state =
+                selectedId === s.id ? "selected" : hover?.from === "list" && hover.id === s.id ? "hover" : "idle";
               return (
                 <Marker
                   key={s.id}
@@ -578,17 +585,16 @@ export const Stakeholders = () => {
                   alt={s.name}
                   eventHandlers={{
                     click: () => select(s.id),
-                    mouseover: () => setHovered(s.id),
-                    mouseout: () => setHovered(null),
+                    mouseover: () => setHover({ id: s.id, from: "map" }),
+                    mouseout: () => setHover(null),
                   }}
                 >
-                  <SmartTooltip coords={s.coords}>
-                    <HoverCard s={s} />
-                  </SmartTooltip>
                 </Marker>
               );
             })}
           </MapContainer>
+
+          {hover?.from === "map" && hover.id !== selectedId && <FloatingCard map={map} s={byId[hover.id]} />}
 
           <DetailPanel s={selected} onClose={() => setSelectedId(null)} onSelect={select} />
 
