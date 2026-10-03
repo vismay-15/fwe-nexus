@@ -3,6 +3,8 @@ import { MapContainer, TileLayer, Marker, Tooltip, Polyline, ZoomControl, useMap
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { stakeholders, projects } from "../../data/stakeholders";
+import { hotspots } from "../../data/challenges";
+import { useSearchParams } from "react-router-dom";
 import { SECTORS, TYPE_CODES, glyphSVG, NexusGlyph } from "../../components/NexusGlyph";
 import { EuropeBase } from "./EuropeBase";
 import "./style.css";
@@ -130,7 +132,7 @@ const FlyTo = ({ target }) => {
 
 // One hover card for the whole map, positioned next to the hovered marker.
 // Only one can exist, so cards can never pile up.
-const FloatingCard = ({ map, s }) => {
+const FloatingCard = ({ map, coords, depKey, children }) => {
   const ref = useRef(null);
   const [, redraw] = useState(0);
   const [h, setH] = useState(400);
@@ -142,9 +144,9 @@ const FloatingCard = ({ map, s }) => {
   }, [map]);
   useLayoutEffect(() => {
     if (ref.current) setH(ref.current.offsetHeight);
-  }, [s]);
-  if (!map || !s) return null;
-  const pt = map.latLngToContainerPoint(s.coords);
+  }, [depKey]);
+  if (!map || !coords) return null;
+  const pt = map.latLngToContainerPoint(coords);
   const size = map.getSize();
   const W = Math.min(320, size.x - 16);
   const GAP = 22;
@@ -164,7 +166,7 @@ const FloatingCard = ({ map, s }) => {
   top = Math.max(8, Math.min(top, size.y - h - 8));
   return (
     <div className="hover-float" ref={ref} style={{ left, top, width: W }} role="tooltip">
-      <HoverCard s={s} />
+      {children}
     </div>
   );
 };
@@ -312,6 +314,83 @@ const DetailPanel = ({ s, onClose, onSelect }) => {
   );
 };
 
+
+const hotspotByIdMap = Object.fromEntries(hotspots.map((h) => [h.id, h]));
+const hotspotIcons = {};
+function hotspotIcon(selected) {
+  const k = selected ? "sel" : "idle";
+  if (!hotspotIcons[k]) {
+    const size = selected ? 32 : 26;
+    const c = size / 2;
+    const r = c - 2;
+    hotspotIcons[k] = L.divIcon({
+      className: "hs-marker",
+      html: `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true"><path d="M${c} 2 L${size - 2} ${c} L${c} ${size - 2} L2 ${c} Z" fill="#b3261e" stroke="#fff" stroke-width="2"${selected ? ' stroke-dasharray=""' : ""}/><text x="${c}" y="${c}" dy="0.36em" text-anchor="middle" font-family="Public Sans, sans-serif" font-weight="800" font-size="${(r * 0.95).toFixed(1)}" fill="#fff">!</text></svg>`,
+      iconSize: [size, size],
+      iconAnchor: [c, c],
+    });
+  }
+  return hotspotIcons[k];
+}
+
+const HotspotHover = ({ h }) => (
+  <div className="hover-card">
+    <div className="hover-card__head">
+      <strong>{h.name}</strong>
+      <span className="muted">
+        Conflict hotspot · {h.place} · {h.years}
+      </span>
+    </div>
+    <p className="hover-card__summary">{h.summary}</p>
+    <div className="hover-card__block">
+      <span className="hover-card__label">Governance gap</span>
+      <p>{h.gap}</p>
+    </div>
+    <span className="hover-card__cta">Click the marker for details and sources</span>
+  </div>
+);
+
+const HotspotPanel = ({ h, onClose }) => {
+  const ref = useRef(null);
+  useEffect(() => {
+    ref.current?.focus();
+  }, [h]);
+  if (!h) return null;
+  return (
+    <aside className="detail detail--hotspot" aria-label={`${h.name} conflict hotspot`} ref={ref} tabIndex={-1}>
+      <button className="detail__close" onClick={onClose} aria-label="Close details">
+        Close
+      </button>
+      <p className="detail__kicker">Conflict hotspot</p>
+      <h2>{h.name}</h2>
+      <p className="muted">
+        {h.place} · {h.years}
+      </p>
+      <div className="detail__chips">
+        {h.sectors.map((k) => (
+          <span key={k} className="sector-chip" data-sector={k}>
+            {sectorLabel[k]}
+          </span>
+        ))}
+      </div>
+      <h3>What happened</h3>
+      <p>{h.summary}</p>
+      <h3>Governance gap</h3>
+      <p>{h.gap}</p>
+      <h3>Sources</h3>
+      <ul className="source-list">
+        {h.sources.map((src) => (
+          <li key={src.url}>
+            <a href={src.url} target="_blank" rel="noreferrer">
+              {src.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  );
+};
+
 /* ---------------------------------------------------------------- */
 
 export const Stakeholders = () => {
@@ -325,10 +404,14 @@ export const Stakeholders = () => {
   const tileErrors = useRef(0);
   const [hover, setHover] = useState(null); // { id, from: "map" | "list" }
   const [map, setMap] = useState(null);
-  const hovered = hover?.id ?? null;
+  const hovered = hover && hover.kind !== "hotspot" ? hover.id : null;
   const [selectedId, setSelectedId] = useState(null);
   const [activeProject, setActiveProject] = useState(null);
   const [wheelOn, setWheelOn] = useState(false);
+  const [showHotspots, setShowHotspots] = useState(true);
+  const [searchParams] = useSearchParams();
+  const [hotspotId, setHotspotId] = useState(() => searchParams.get("hotspot"));
+  const selectedHotspot = hotspotId ? hotspotByIdMap[hotspotId] : null;
   const [legendOpen, setLegendOpen] = useState(() => typeof window === "undefined" || window.innerWidth > 900);
 
   const selected = selectedId ? byId[selectedId] : null;
@@ -384,11 +467,28 @@ export const Stakeholders = () => {
 
   const select = (id) => {
     setSelectedId(id);
+    setHotspotId(null);
+    setHover(null);
+  };
+
+  const selectHotspot = (id) => {
+    setHotspotId(id);
+    setSelectedId(null);
     setHover(null);
   };
 
   useEffect(() => {
-    const onKey = (e) => e.key === "Escape" && setSelectedId(null);
+    if (searchParams.get("hotspot")) document.querySelector(".explorer")?.scrollIntoView();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") {
+        setSelectedId(null);
+        setHotspotId(null);
+      }
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
@@ -477,6 +577,10 @@ export const Stakeholders = () => {
                 project links
               </label>
               <label>
+                <input type="checkbox" checked={showHotspots} onChange={(e) => setShowHotspots(e.target.checked)} /> Show
+                conflict hotspots
+              </label>
+              <label>
                 <input
                   type="checkbox"
                   checked={outlineMap || tilesFailed}
@@ -547,7 +651,7 @@ export const Stakeholders = () => {
             <ZoomControl position="topright" />
             <WheelOnClick onChange={setWheelOn} />
             <FitTo points={stakeholders.map((s) => s.coords)} trigger="init" />
-            <FlyTo target={selected} />
+            <FlyTo target={selected || selectedHotspot} />
             {outlineMap || tilesFailed ? (
               <EuropeBase />
             ) : (
@@ -612,11 +716,38 @@ export const Stakeholders = () => {
                 </Marker>
               );
             })}
+            {showHotspots &&
+              hotspots.map((h) => (
+                <Marker
+                  key={`hs-${h.id}`}
+                  position={h.coords}
+                  icon={hotspotIcon(hotspotId === h.id)}
+                  zIndexOffset={hotspotId === h.id ? 1200 : 500}
+                  keyboard={true}
+                  title={`${h.name} (conflict hotspot)`}
+                  alt={`${h.name} (conflict hotspot)`}
+                  eventHandlers={{
+                    click: () => selectHotspot(h.id),
+                    mouseover: () => setHover({ id: h.id, from: "map", kind: "hotspot" }),
+                    mouseout: () => setHover(null),
+                  }}
+                />
+              ))}
           </MapContainer>
 
-          {hover?.from === "map" && hover.id !== selectedId && <FloatingCard map={map} s={byId[hover.id]} />}
+          {hover?.from === "map" && hover.kind !== "hotspot" && hover.id !== selectedId && (
+            <FloatingCard map={map} coords={byId[hover.id]?.coords} depKey={hover.id}>
+              <HoverCard s={byId[hover.id]} />
+            </FloatingCard>
+          )}
+          {hover?.kind === "hotspot" && hover.id !== hotspotId && (
+            <FloatingCard map={map} coords={hotspotByIdMap[hover.id]?.coords} depKey={hover.id}>
+              <HotspotHover h={hotspotByIdMap[hover.id]} />
+            </FloatingCard>
+          )}
 
           <DetailPanel s={selected} onClose={() => setSelectedId(null)} onSelect={select} />
+          <HotspotPanel h={selectedHotspot} onClose={() => setHotspotId(null)} />
 
           <details className="map-legend" open={legendOpen} onToggle={(e) => setLegendOpen(e.currentTarget.open)}>
             <summary>How to read a marker</summary>
@@ -637,6 +768,9 @@ export const Stakeholders = () => {
                     .filter(([t]) => types.includes(t))
                     .map(([t, c]) => `${c} ${TYPE_SHORT[t] || t}`)
                     .join(", ")}
+                </p>
+                <p className="mb-0 mt-1 map-legend__hs">
+                  <span className="map-legend__diamond" aria-hidden="true" /> Conflict hotspot (see the Challenges page)
                 </p>
               </div>
             </div>

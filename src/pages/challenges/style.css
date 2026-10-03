@@ -1,0 +1,273 @@
+.ch-intro {
+  padding-bottom: 32px;
+}
+
+.ch-intro h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 0.4em;
+}
+
+/* challenge cards: the figure is the point, so it leads */
+.ch-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 0 32px;
+}
+
+.ch-card {
+  border-top: 4px solid var(--accent);
+  padding: 16px 0 24px;
+  min-width: 0;
+}
+
+.ch-card h3 {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.ch-card__figure {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.ch-card__label {
+  font-weight: 600;
+  color: var(--ink-2);
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.ch-card p {
+  color: var(--ink-2);
+}
+
+.ch-card__source {
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* charts */
+.ch-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 32px;
+  margin-top: 24px;
+}
+
+.chart {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-m);
+  padding: 20px 20px 16px;
+  margin: 0;
+  min-width: 0;
+}
+
+.chart figcaption h3 {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.chart figcaption p {
+  font-size: 0.92rem;
+  color: var(--ink-2);
+}
+
+.chart__legend {
+  display: flex;
+  gap: 18px;
+  font-size: 0.85rem;
+  color: var(--ink-2);
+  margin-bottom: 4px;
+}
+
+.chart__legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chart__legend i {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.chart__legend i.tick {
+  width: 3px;
+  height: 14px;
+  border-radius: 2px;
+}
+
+.chart__plot {
+  position: relative;
+}
+
+.chart__plot svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.chart__grid {
+  stroke: #e3e9ea;
+  stroke-width: 1;
+}
+
+.chart__axis {
+  font-size: 11px;
+  fill: var(--ink-3);
+  font-family: var(--font-body);
+}
+
+.chart__label {
+  font-size: 12.5px;
+  fill: var(--ink-2);
+  font-family: var(--font-body);
+}
+
+.chart__label.is-eu {
+  font-weight: 700;
+  fill: var(--ink);
+}
+
+.chart__value {
+  font-size: 12px;
+  fill: var(--ink);
+  font-weight: 600;
+  font-family: var(--font-body);
+  font-variant-numeric: tabular-nums;
+}
+
+.chart__span {
+  stroke: #c9d3d6;
+  stroke-width: 2;
+}
+
+.chart__row {
+  outline: none;
+  cursor: default;
+}
+
+.chart__row.is-on rect:first-child,
+.chart__row:focus-visible rect:first-child {
+  fill: #eef3f2;
+}
+
+.chart__row:focus-visible {
+  outline: 2px solid var(--focus);
+}
+
+.chart-tip {
+  position: absolute;
+  transform: translate(12px, -50%);
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(20, 39, 58, 0.15);
+  padding: 8px 10px;
+  font-size: 0.82rem;
+  display: grid;
+  gap: 2px;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 5;
+}
+
+.chart-tip i {
+  display: inline-block;
+  width: 10px;
+  height: 3px;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+
+.chart__source {
+  font-size: 0.8rem;
+  color: var(--ink-3);
+  margin: 10px 0 4px;
+}
+
+.chart-table-btn {
+  font-size: 0.85rem;
+}
+
+.chart__table {
+  overflow-x: auto;
+  margin-top: 8px;
+}
+
+.chart__table table {
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  width: 100%;
+}
+
+.chart__table th,
+.chart__table td {
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+}
+
+.chart__table td {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* hotspots */
+.hotspot-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 24px 40px;
+  margin-top: 16px;
+}
+
+.hotspot-item {
+  border-left: 3px solid #b3261e;
+  padding-left: 18px;
+  min-width: 0;
+}
+
+.hotspot-item h3 {
+  font-size: 1.3rem;
+  margin-bottom: 2px;
+}
+
+.hotspot-item__meta {
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.hotspot-item p {
+  color: var(--ink-2);
+}
+
+.hotspot-item__gap {
+  color: var(--ink) !important;
+}
+
+.hotspot-item__links {
+  font-size: 0.85rem;
+}
+
+@media (max-width: 520px) {
+  .ch-charts,
+  .hotspot-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .chart {
+    padding: 14px 10px;
+  }
+}

@@ -17,7 +17,7 @@ const PRIMARY_CASES = [
     name: "Spain",
     tag: "Water scarcity and irrigation",
     pressure:
-      "Irrigated land is about 23% of cultivated area but produces around 65% of final crop output (MAPA). Irrigation is still by far the largest water use.",
+      "Irrigated land is about 23% of cultivated area but produces around 65% of the value of crop production (MAPA). Irrigation is still by far the largest water use.",
     mechanism:
       "Long-established river-basin authorities (Confederaciones Hidrográficas), and a programme to digitalise irrigation communities: €170.2 million for 375 projects covering about 1.25 million hectares, funded through NextGenerationEU.",
     tension:
@@ -77,11 +77,14 @@ const RECOMMENDATIONS = [
   ["Plan scenarios jointly and evaluate governance", "Test drought, price and climate scenarios together, and track whether coordination improves."],
 ];
 
-const NEXT_STEPS = [
-  ["Expert interviews", "Test the findings with people who manage water, energy and farming decisions in Spain and Germany."],
-  ["Populate the indicator set", "Fill the indicators for both countries over a common period, from Eurostat, EEA and national statistics."],
-  ["Live nexus dashboard", "Connect the stakeholder map to the indicators, so each organisation can be seen next to the outcomes it influences."],
-  ["Basin-scale decision support", "Pilot a digital tool that combines drought, reservoir, irrigation, energy and crop data with agreed decision thresholds."],
+const ROADMAP = [
+  { status: "Done", title: "Peer review and revision of the manuscript", text: "Methods, literature, case evidence and references strengthened; figures checked against their sources." },
+  { status: "Done", title: "Interactive stakeholder map", text: "22 organisations profiled, with shared EU projects and conflict hotspots." },
+  { status: "In progress", title: "Journal submission", text: "Choosing the target journal and completing the remaining author details and declarations." },
+  { status: "Planned", title: "Expert interviews", text: "Test the findings with people who manage water, energy and farming decisions in Spain and Germany." },
+  { status: "Planned", title: "Populate the indicator set", text: "Fill the indicators for both countries over a common period, from Eurostat, EEA and national statistics." },
+  { status: "Planned", title: "Live nexus dashboard", text: "Connect the stakeholder map to the indicators, so each organisation sits next to the outcomes it influences." },
+  { status: "Later", title: "Basin-scale decision support", text: "Pilot a digital tool combining drought, reservoir, irrigation, energy and crop data with agreed decision thresholds." },
 ];
 
 export const Research = () => (
@@ -105,7 +108,7 @@ export const Research = () => (
             ["cases", "Case studies"],
             ["indicators", "Indicators"],
             ["recommendations", "Recommendations"],
-            ["next", "Next steps"],
+            ["next", "Roadmap"],
           ].map(([id, label]) => (
             <button key={id} className="link-btn" onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })}>
               {label}
@@ -276,12 +279,16 @@ export const Research = () => (
 
     <section id="next" className="section section--paper">
       <div className="wrap">
-        <h2>Next steps</h2>
-        <ol className="roadmap">
-          {NEXT_STEPS.map(([t, d]) => (
-            <li key={t}>
-              <h3>{t}</h3>
-              <p>{d}</p>
+        <h2>Roadmap</h2>
+        <p className="measure">Where the project stands and what comes next.</p>
+        <ol className="roadmap2">
+          {ROADMAP.map((r) => (
+            <li key={r.title} data-status={r.status}>
+              <span className="roadmap2__status">{r.status}</span>
+              <div>
+                <h3>{r.title}</h3>
+                <p>{r.text}</p>
+              </div>
             </li>
           ))}
         </ol>
