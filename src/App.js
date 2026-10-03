@@ -7,28 +7,48 @@ import { useEffect } from "react";
 import "./assets/css/style.css";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
-  useEffect(() => window.scrollTo(0, 0), [pathname]);
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [pathname]);
   return null;
+};
+
+const Pages = () => {
+  const { pathname } = useLocation();
+  return (
+    <ErrorBoundary resetKey={pathname}>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/research" element={<Research />} />
+        <Route path="/stakeholders" element={<Stakeholders />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="*" element={<Landing />} />
+      </Routes>
+    </ErrorBoundary>
+  );
 };
 
 function App() {
   return (
     <Router>
       <ScrollToTop />
-      <a className="skip-link" href="#main">
+      <button
+        className="skip-link"
+        onClick={() => {
+          const m = document.getElementById("main");
+          m?.setAttribute("tabindex", "-1");
+          m?.focus();
+        }}
+      >
         Skip to content
-      </a>
+      </button>
       <Header />
       <main id="main" className="main">
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/research" element={<Research />} />
-          <Route path="/stakeholders" element={<Stakeholders />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
+        <Pages />
       </main>
       <Footer />
     </Router>
