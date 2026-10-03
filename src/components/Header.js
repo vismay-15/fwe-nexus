@@ -8,6 +8,7 @@ const LINKS = [
   { to: "/research", label: "Research" },
   { to: "/challenges", label: "Challenges" },
   { to: "/stakeholders", label: "Stakeholder map" },
+  { to: "/contact", label: "Contact" },
 ];
 
 export const Header = () => {
