@@ -320,7 +320,9 @@ export const Stakeholders = () => {
   const [typeFilter, setTypeFilter] = useState("");
   const [roleFilter, setRoleFilter] = useState("");
   const [showNetwork, setShowNetwork] = useState(true);
-  const [streetMap, setStreetMap] = useState(false);
+  const [outlineMap, setOutlineMap] = useState(false);
+  const [tilesFailed, setTilesFailed] = useState(false);
+  const tileErrors = useRef(0);
   const [hover, setHover] = useState(null); // { id, from: "map" | "list" }
   const [map, setMap] = useState(null);
   const hovered = hover?.id ?? null;
@@ -475,8 +477,13 @@ export const Stakeholders = () => {
                 project links
               </label>
               <label>
-                <input type="checkbox" checked={streetMap} onChange={(e) => setStreetMap(e.target.checked)} /> Street
-                map background
+                <input
+                  type="checkbox"
+                  checked={outlineMap || tilesFailed}
+                  disabled={tilesFailed}
+                  onChange={(e) => setOutlineMap(e.target.checked)}
+                />{" "}
+                Simple outline map
               </label>
             </div>
 
@@ -530,19 +537,32 @@ export const Stakeholders = () => {
             scrollWheelZoom={false}
             dragging={!L.Browser.mobile}
             worldCopyJump={false}
+            maxBounds={[
+              [18, -45],
+              [78, 75],
+            ]}
+            maxBoundsViscosity={0.8}
             className="sh-map"
           >
             <ZoomControl position="topright" />
             <WheelOnClick onChange={setWheelOn} />
             <FitTo points={stakeholders.map((s) => s.coords)} trigger="init" />
             <FlyTo target={selected} />
-            {streetMap ? (
-              <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-            ) : (
+            {outlineMap || tilesFailed ? (
               <EuropeBase />
+            ) : (
+              <TileLayer
+                className="osm-tiles"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> contributors'
+                url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+                maxZoom={19}
+                eventHandlers={{
+                  tileerror: () => {
+                    tileErrors.current += 1;
+                    if (tileErrors.current > 6) setTilesFailed(true);
+                  },
+                }}
+              />
             )}
 
             {showNetwork &&

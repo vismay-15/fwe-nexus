@@ -675,3 +675,8 @@
 .sh-marker:hover svg {
   transform: scale(1.18);
 }
+
+/* soften the OpenStreetMap colours so markers and links stay readable */
+.osm-tiles {
+  filter: saturate(0.45) brightness(1.04) contrast(0.92);
+}
