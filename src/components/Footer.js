@@ -25,5 +25,17 @@ export const Footer = () => (
         </ul>
       </div>
     </div>
+    <div className="wrap site-footer__credits">
+      <p>
+        Organisation names belong to their owners and are used only to identify them. Profiles are summaries written
+        from public sources linked on each profile; no endorsement by any organisation is implied.
+      </p>
+      <p>
+        Credits: map outlines from <a href="https://www.naturalearthdata.com/" target="_blank" rel="noreferrer">Natural Earth</a> (public
+        domain); optional street map © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a>{" "}
+        contributors; mapping by <a href="https://leafletjs.com/" target="_blank" rel="noreferrer">Leaflet</a>; fonts Playfair Display
+        and Public Sans (SIL Open Font License). Text, diagrams and icons © {new Date().getFullYear()} Vismay Loliyaniya.
+      </p>
+    </div>
   </footer>
 );
