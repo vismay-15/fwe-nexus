@@ -140,6 +140,22 @@ const SmartTooltip = ({ coords, children }) => {
   );
 };
 
+// Page scrolling passes over the map until the visitor clicks it;
+// then the mouse wheel zooms, until the pointer leaves the map.
+const WheelOnClick = ({ onChange }) => {
+  const map = useMapEvents({
+    click: () => {
+      map.scrollWheelZoom.enable();
+      onChange(true);
+    },
+    mouseout: () => {
+      map.scrollWheelZoom.disable();
+      onChange(false);
+    },
+  });
+  return null;
+};
+
 const FlyTo = ({ target }) => {
   const map = useMap();
   useEffect(() => {
@@ -305,6 +321,8 @@ export const Stakeholders = () => {
   const [hovered, setHovered] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
   const [activeProject, setActiveProject] = useState(null);
+  const [wheelOn, setWheelOn] = useState(false);
+  const [legendOpen, setLegendOpen] = useState(() => typeof window === "undefined" || window.innerWidth > 900);
 
   const selected = selectedId ? byId[selectedId] : null;
 
@@ -380,38 +398,12 @@ export const Stakeholders = () => {
   return (
     <div className="stakeholders-page">
       <section className="sh-intro">
-        <div className="wrap sh-intro__grid">
-          <div>
-            <h1>Who shapes the water–energy–food nexus in Europe</h1>
-            <p className="lede measure">
-              {stakeholders.length} organisations in {countries} countries that research, advise on or operate
-              the systems where water, energy and food meet. Hover over a marker to see what each one does; click it
-              for its projects, future direction and sources. Lines join organisations that work together on
-              EU-funded projects.
-            </p>
-          </div>
-          <div className="glyph-key" aria-label="How to read a marker">
-            <NexusGlyph sectors={["water", "energy", "food"]} type="University" size={88} />
-            <div>
-              <p className="glyph-key__title">How to read a marker</p>
-              <p className="mb-1">The ring shows which sectors the organisation works on:</p>
-              <div className="glyph-key__sectors">
-                {SECTORS.map((s) => (
-                  <span key={s.key} className="sector-chip" data-sector={s.key}>
-                    {s.label}
-                  </span>
-                ))}
-              </div>
-              <p className="mb-0 mt-2">
-                The centre letter shows the type of organisation:{" "}
-                {Object.entries(TYPE_CODES)
-                  .filter(([t]) => types.includes(t))
-                  .map(([t, c]) => `${c} ${TYPE_SHORT[t] || t}`)
-                  .join(", ")}
-                .
-              </p>
-            </div>
-          </div>
+        <div className="wrap">
+          <h1>Who shapes the water–energy–food nexus in Europe</h1>
+          <p className="sh-intro__lede">
+            {stakeholders.length} organisations in {countries} countries. Hover over a marker for a summary, click it for
+            the full profile. Lines join organisations that share EU-funded projects.
+          </p>
         </div>
       </section>
 
@@ -529,11 +521,13 @@ export const Stakeholders = () => {
             minZoom={3}
             maxZoom={12}
             zoomControl={false}
-            scrollWheelZoom={true}
+            scrollWheelZoom={false}
+            dragging={!L.Browser.mobile}
             worldCopyJump={false}
             className="sh-map"
           >
             <ZoomControl position="topright" />
+            <WheelOnClick onChange={setWheelOn} />
             <FitTo points={stakeholders.map((s) => s.coords)} trigger="init" />
             <FlyTo target={selected} />
             {streetMap ? (
@@ -597,6 +591,36 @@ export const Stakeholders = () => {
           </MapContainer>
 
           <DetailPanel s={selected} onClose={() => setSelectedId(null)} onSelect={select} />
+
+          <details className="map-legend" open={legendOpen} onToggle={(e) => setLegendOpen(e.currentTarget.open)}>
+            <summary>How to read a marker</summary>
+            <div className="map-legend__body">
+              <NexusGlyph sectors={["water", "energy", "food"]} type="University" size={44} />
+              <div>
+                <p className="mb-1">Ring: sectors the organisation works on</p>
+                <div className="map-legend__chips">
+                  {SECTORS.map((s) => (
+                    <span key={s.key} className="sector-chip" data-sector={s.key}>
+                      {s.label}
+                    </span>
+                  ))}
+                </div>
+                <p className="mb-0 mt-1">
+                  Centre letter:{" "}
+                  {Object.entries(TYPE_CODES)
+                    .filter(([t]) => types.includes(t))
+                    .map(([t, c]) => `${c} ${TYPE_SHORT[t] || t}`)
+                    .join(", ")}
+                </p>
+              </div>
+            </div>
+          </details>
+
+          {!wheelOn && (
+            <p className="map-hint" aria-hidden="true">
+              {L.Browser.mobile ? "Pinch with two fingers to zoom and move the map" : "Click the map to zoom with your mouse wheel"}
+            </p>
+          )}
         </div>
       </section>
 

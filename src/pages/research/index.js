@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import framework from "../../assets/images/framework.png";
 import "./style.css";
 
 const DIMENSIONS = [
@@ -119,27 +118,81 @@ export const Research = () => (
     <section id="framework" className="section section--paper">
       <div className="wrap">
         <h2>Framework</h2>
-        <div className="framework">
-          <figure>
-            <img src={framework} alt="Framework diagram: drivers act on coupled water, energy and food systems; these interact with governance arrangements and with actors and mandates; all three feed a shared evidence layer that informs integrated decisions, with an adaptive review loop back to the start." />
-            <figcaption className="muted">
-              Three perspectives — systems, governance and stakeholders — meet in shared evidence and integrated
-              decisions; monitoring feeds back through adaptive review.
-            </figcaption>
-          </figure>
-          <div>
-            <h3>Seven governance dimensions</h3>
-            <p className="muted">Adapted from the OECD Principles on Water Governance and Weitz et al. (2017).</p>
-            <dl className="dims">
-              {DIMENSIONS.map(([d, q]) => (
-                <div key={d}>
-                  <dt>{d}</dt>
-                  <dd>{q}</dd>
-                </div>
-              ))}
-            </dl>
+        <figure className="fw" aria-label="Framework diagram">
+          <div className="fw__cols">
+            <div className="fw__col">
+              <p className="fw__persp">1. Systems interdependence</p>
+              <div className="fw__box">
+                <h3>Drivers</h3>
+                <p>Climate and drought · energy transition · markets and input prices · EU policy · digitalisation</p>
+              </div>
+              <span className="fw__arrow fw__arrow--down" aria-hidden="true" />
+              <div className="fw__box">
+                <h3>Coupled WEF systems</h3>
+                <p>Water, energy and food, within ecosystem limits (ecosystems as a cross-cutting condition)</p>
+              </div>
+            </div>
+            <span className="fw__link" aria-hidden="true">
+              <svg viewBox="0 0 36 14" width="36" height="14">
+                <line x1="6" y1="7" x2="30" y2="7" stroke="#66788a" strokeWidth="2" />
+                <path d="M0 7 L8 2 L8 12 Z M36 7 L28 2 L28 12 Z" fill="#66788a" />
+              </svg>
+            </span>
+            <div className="fw__col">
+              <p className="fw__persp">2. Governance integration</p>
+              <div className="fw__box fw__box--tall">
+                <h3>Governance arrangements</h3>
+                <p>Assessed on seven dimensions:</p>
+                <ul>
+                  {DIMENSIONS.map(([d]) => (
+                    <li key={d}>{d}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <span className="fw__link" aria-hidden="true">
+              <svg viewBox="0 0 36 14" width="36" height="14">
+                <line x1="6" y1="7" x2="30" y2="7" stroke="#66788a" strokeWidth="2" />
+                <path d="M0 7 L8 2 L8 12 Z M36 7 L28 2 L28 12 Z" fill="#66788a" />
+              </svg>
+            </span>
+            <div className="fw__col">
+              <p className="fw__persp">3. Stakeholder influence</p>
+              <div className="fw__box fw__box--tall">
+                <h3>Actors and mandates</h3>
+                <p>Who regulates, funds, operates, owns data, bears risk or is affected</p>
+                <p>EU · national · regional · basin · utility · farm · community</p>
+                <p>Influence comes from mandate, budget, data and veto power</p>
+              </div>
+            </div>
           </div>
-        </div>
+          <div className="fw__merge" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </div>
+          <div className="fw__result">
+            <h3>Shared evidence and integrated decisions</h3>
+            <p>Indicators, monitoring, open data and scenarios inform decisions on trade-offs, synergies, decision rules and accountability.</p>
+          </div>
+          <p className="fw__loop">
+            <span aria-hidden="true">↻</span> Adaptive review: monitoring feeds back into the drivers, the systems and the rules.
+          </p>
+          <figcaption className="muted">
+            Three perspectives — systems, governance and stakeholders — meet in shared evidence and integrated decisions.
+          </figcaption>
+        </figure>
+
+        <h3 className="fw__dims-title">The seven governance dimensions</h3>
+        <p className="muted">Adapted from the OECD Principles on Water Governance and Weitz et al. (2017).</p>
+        <dl className="dims">
+          {DIMENSIONS.map(([d, q]) => (
+            <div key={d}>
+              <dt>{d}</dt>
+              <dd>{q}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
 
