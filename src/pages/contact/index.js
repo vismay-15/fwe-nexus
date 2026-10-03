@@ -121,6 +121,18 @@ export const Contact = () => {
           </form>
 
           <aside className="contact-side">
+            <div className="researcher">
+              <p className="researcher__label">Researcher</p>
+              <p className="researcher__name">
+                <a href={LINKEDIN} target="_blank" rel="noreferrer">
+                  Vismay Loliyaniya, MSc, GMICE, CAVA, IQA
+                </a>
+              </p>
+              <ul className="researcher__creds">
+                <li>Chartered Institute of Building (CIOB): Educator Pathway member</li>
+                <li>Working towards Fellowship of the Higher Education Academy (FHEA)</li>
+              </ul>
+            </div>
             <h2>Other ways to reach me</h2>
             <dl>
               <div>
@@ -136,7 +148,7 @@ export const Contact = () => {
                 <dt>LinkedIn</dt>
                 <dd>
                   <a href={LINKEDIN} target="_blank" rel="noreferrer">
-                    Vismay Loliyaniya
+                    linkedin.com/in/vismayloliyaniya
                   </a>
                 </dd>
               </div>

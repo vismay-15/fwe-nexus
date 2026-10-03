@@ -23,7 +23,7 @@ export const Footer = () => (
         <ul className="list-unstyled mb-0">
           <li><Link to="/contact">Send a message or suggestion</Link></li>
           <li><a href="mailto:vismaymloliyaniya@gmail.com">vismaymloliyaniya@gmail.com</a></li>
-          <li><a href="https://www.linkedin.com/in/vismayloliyaniya/" target="_blank" rel="noreferrer">LinkedIn profile</a></li>
+          <li><a href="https://www.linkedin.com/in/vismayloliyaniya/" target="_blank" rel="noreferrer">Vismay Loliyaniya, MSc, GMICE, CAVA, IQA</a></li>
         </ul>
       </div>
     </div>
