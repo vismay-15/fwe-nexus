@@ -2,23 +2,29 @@ import React, { useEffect, useState } from "react";
 import { GeoJSON, Pane } from "react-leaflet";
 import { feature } from "topojson-client";
 
-// Vector basemap drawn from Natural Earth (via world-atlas), so the map
-// works without any external tile server. Clipped to a Europe window.
-const BOUNDS = { minLon: -32, maxLon: 48, minLat: 26, maxLat: 72 };
+// Simple outline basemap from Natural Earth (public domain, via world-atlas).
+// Used when the visitor chooses it, or when map tiles cannot load.
 
-function intersectsEurope(f) {
-  let hit = false;
-  const visit = (coords) => {
-    if (hit) return;
-    if (typeof coords[0] === "number") {
-      const [lon, lat] = coords;
-      if (lon > BOUNDS.minLon && lon < BOUNDS.maxLon && lat > BOUNDS.minLat && lat < BOUNDS.maxLat) hit = true;
-      return;
-    }
-    coords.forEach(visit);
-  };
-  visit(f.geometry.coordinates);
-  return hit;
+// Rings that cross the 180° meridian jump from +180 to -180 between two
+// points, which draws a stray line across the whole map. Unwrapping keeps
+// each ring continuous.
+function unwrapRing(ring) {
+  let offset = 0;
+  let prev = ring[0][0];
+  return ring.map(([lon, lat]) => {
+    const d = lon - prev;
+    if (d > 180) offset -= 360;
+    else if (d < -180) offset += 360;
+    prev = lon;
+    return [lon + offset, lat];
+  });
+}
+
+function unwrap(geom) {
+  if (geom.type === "Polygon") return { ...geom, coordinates: geom.coordinates.map(unwrapRing) };
+  if (geom.type === "MultiPolygon")
+    return { ...geom, coordinates: geom.coordinates.map((poly) => poly.map(unwrapRing)) };
+  return geom;
 }
 
 export const EuropeBase = () => {
@@ -28,8 +34,10 @@ export const EuropeBase = () => {
     import("world-atlas/countries-50m.json").then((mod) => {
       const world = mod.default || mod;
       const fc = feature(world, world.objects.countries);
-      if (live)
-        setData({ type: "FeatureCollection", features: fc.features.filter((f) => f.geometry && intersectsEurope(f)) });
+      const features = fc.features
+        .filter((f) => f.geometry && f.properties?.name !== "Antarctica")
+        .map((f) => ({ ...f, geometry: unwrap(f.geometry) }));
+      if (live) setData({ type: "FeatureCollection", features });
     });
     return () => {
       live = false;
@@ -42,7 +50,8 @@ export const EuropeBase = () => {
       <GeoJSON
         data={data}
         interactive={false}
-        style={{ color: "#c3cfd3", weight: 0.8, fillColor: "#fbfcfc", fillOpacity: 1 }}
+        attribution='Outlines: <a href="https://www.naturalearthdata.com/" target="_blank" rel="noreferrer">Natural Earth</a>'
+        style={{ color: "#b9c6cb", weight: 0.8, fillColor: "#fbfcfc", fillOpacity: 1 }}
       />
     </Pane>
   );
