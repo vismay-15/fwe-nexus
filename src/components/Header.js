@@ -6,6 +6,7 @@ import "../assets/css/header.css";
 const LINKS = [
   { to: "/", label: "Home", end: true },
   { to: "/research", label: "Research" },
+  { to: "/challenges", label: "Challenges" },
   { to: "/stakeholders", label: "Stakeholder map" },
 ];
 

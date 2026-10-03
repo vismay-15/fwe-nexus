@@ -135,6 +135,11 @@ export const Landing = () => {
             Drought figures: Toreti et al. (2022), <i>Drought in Europe – August 2022</i>, European Commission Joint
             Research Centre.
           </p>
+          <p className="mt-4 mb-0">
+            <Link to="/challenges" className="btn-line">
+              See the evidence and conflict hotspots
+            </Link>
+          </p>
         </div>
       </section>
 

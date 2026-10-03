@@ -14,6 +14,7 @@ export const Footer = () => (
         <h2>Explore</h2>
         <ul className="list-unstyled mb-0">
           <li><Link to="/research">The research</Link></li>
+          <li><Link to="/challenges">Challenges and evidence</Link></li>
           <li><Link to="/stakeholders">Stakeholder map</Link></li>
         </ul>
       </div>
@@ -33,7 +34,7 @@ export const Footer = () => (
       <p>
         Credits: map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a>{" "}
         contributors; simple outline map from <a href="https://www.naturalearthdata.com/" target="_blank" rel="noreferrer">Natural Earth</a>{" "}
-        (public domain); mapping by <a href="https://leafletjs.com/" target="_blank" rel="noreferrer">Leaflet</a>; fonts Playfair Display
+        (public domain); statistics from Eurostat and the European Environment Agency (reused with attribution, charts drawn by the author); mapping by <a href="https://leafletjs.com/" target="_blank" rel="noreferrer">Leaflet</a>; fonts Playfair Display
         and Public Sans (SIL Open Font License). Text, diagrams and icons © {new Date().getFullYear()} Vismay Loliyaniya.
       </p>
     </div>
