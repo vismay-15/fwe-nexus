@@ -7,7 +7,8 @@ export const Footer = () => (
       <div>
         <h2>WEF Nexus Europe</h2>
         <p className="mb-0">
-          A research project on the drivers and governance of the water–energy–food nexus in Europe, by Vismay Loliyaniya.
+          A research project on the drivers and governance of the water–energy–food nexus in Europe, by{" "}
+          <a href="https://www.vismayloliyaniya.com/">Vismay Loliyaniya</a>.
         </p>
       </div>
       <div>
@@ -23,6 +24,7 @@ export const Footer = () => (
         <ul className="list-unstyled mb-0">
           <li><Link to="/contact">Send a message or suggestion</Link></li>
           <li><a href="mailto:vismaymloliyaniya@gmail.com">vismaymloliyaniya@gmail.com</a></li>
+          <li><a href="https://www.vismayloliyaniya.com/">vismayloliyaniya.com</a></li>
           <li><a href="https://www.linkedin.com/in/vismayloliyaniya/" target="_blank" rel="noreferrer">Vismay Loliyaniya, MSc, GMICE, CAVA, IQA</a></li>
         </ul>
       </div>

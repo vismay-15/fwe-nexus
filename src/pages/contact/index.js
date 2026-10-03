@@ -145,6 +145,12 @@ export const Contact = () => {
                 </dd>
               </div>
               <div>
+                <dt>Website</dt>
+                <dd>
+                  <a href="https://www.vismayloliyaniya.com/">vismayloliyaniya.com</a>
+                </dd>
+              </div>
+              <div>
                 <dt>LinkedIn</dt>
                 <dd>
                   <a href={LINKEDIN} target="_blank" rel="noreferrer">
