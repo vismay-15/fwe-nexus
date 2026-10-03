@@ -170,6 +170,19 @@ select:focus-visible,
   color: #fff;
 }
 
+.site-footer__credits {
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 0.8rem;
+  color: #9fb0bf;
+}
+
+.site-footer__credits p {
+  margin-bottom: 6px;
+  max-width: 110ch;
+}
+
 .site-footer h2 {
   color: #fff;
   font-size: 1.3rem;
