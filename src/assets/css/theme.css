@@ -29,10 +29,6 @@
   --font-body: "Public Sans", "Segoe UI", system-ui, sans-serif;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   background: var(--ground);
   color: var(--ink);
