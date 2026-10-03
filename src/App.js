@@ -3,6 +3,7 @@ import { Stakeholders } from "./pages/stakeholders";
 import { Landing } from "./pages/landing";
 import { Research } from "./pages/research";
 import { Challenges } from "./pages/challenges";
+import { Contact } from "./pages/contact";
 import { HashRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import "./assets/css/style.css";
@@ -27,6 +28,7 @@ const Pages = () => {
         <Route path="/research" element={<Research />} />
         <Route path="/challenges" element={<Challenges />} />
         <Route path="/stakeholders" element={<Stakeholders />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<Landing />} />
       </Routes>
