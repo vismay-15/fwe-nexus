@@ -5,7 +5,8 @@ export const Footer = () => (
   <footer className="site-footer">
     <div className="wrap" style={{ display: "grid", gap: 24, gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}>
       <div>
-        <h2>WEF Nexus Europe</h2>
+        <h2>About this project</h2>
+        <p className="site-footer__lead">WEF Nexus Europe</p>
         <p className="mb-0">
           A research project on the drivers and governance of the water–energy–food nexus in Europe, by{" "}
           <a href="https://www.vismayloliyaniya.com/">Vismay Loliyaniya</a>.
@@ -14,6 +15,7 @@ export const Footer = () => (
       <div>
         <h2>Explore</h2>
         <ul className="list-unstyled mb-0">
+          <li><Link to="/">Overview</Link></li>
           <li><Link to="/research">The research</Link></li>
           <li><Link to="/challenges">Challenges and evidence</Link></li>
           <li><Link to="/stakeholders">Stakeholder map</Link></li>
@@ -37,9 +39,20 @@ export const Footer = () => (
       <p>
         Credits: map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a>{" "}
         contributors; simple outline map from <a href="https://www.naturalearthdata.com/" target="_blank" rel="noreferrer">Natural Earth</a>{" "}
-        (public domain); statistics from Eurostat and the European Environment Agency (reused with attribution, charts drawn by the author); mapping by <a href="https://leafletjs.com/" target="_blank" rel="noreferrer">Leaflet</a>; fonts Playfair Display
-        and Public Sans (SIL Open Font License). Text, diagrams and icons © {new Date().getFullYear()} Vismay Loliyaniya.
+        (public domain); statistics from Eurostat and the European Environment Agency (reused with attribution, charts drawn by the author); mapping by <a href="https://leafletjs.com/" target="_blank" rel="noreferrer">Leaflet</a>; fonts Playfair Display,
+        DM Sans and DM Mono (SIL Open Font License). Text, diagrams and icons © {new Date().getFullYear()} Vismay Loliyaniya.
       </p>
+    </div>
+    <div className="site-footer__bar">
+      <div className="bar-inner">
+        <div className="foot-l">
+          <strong>Vismay Loliyaniya</strong>, GMICE — Educator, Researcher &amp; Career Advisor
+        </div>
+        <div className="foot-r">
+          London, UK &nbsp;·&nbsp; Built Environment &nbsp;·&nbsp; Civil Engineering &nbsp;·&nbsp;{" "}
+          <a href="https://www.vismayloliyaniya.com/">Portfolio</a>
+        </div>
+      </div>
     </div>
   </footer>
 );

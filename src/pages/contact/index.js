@@ -58,7 +58,8 @@ export const Contact = () => {
     <div className="contact-page">
       <section className="section contact-intro">
         <div className="wrap measure">
-          <h1>Get in touch</h1>
+          <p className="eyebrow">Contact</p>
+          <h1>Get in <em>touch</em></h1>
           <p className="lede">
             Questions, suggestions and corrections are all welcome, whether you are a researcher, a student, a
             practitioner or one of the organisations on the map.

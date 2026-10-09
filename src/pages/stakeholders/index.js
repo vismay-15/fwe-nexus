@@ -24,7 +24,7 @@ const THEME_COLOR = {
   food: "#4e8a3a",
   ecosystems: "#138a7e",
   climate: "#7a5ba6",
-  governance: "#14273a",
+  governance: "#1c2432",
 };
 
 const TYPE_SHORT = {
@@ -509,7 +509,8 @@ export const Stakeholders = () => {
     <div className="stakeholders-page">
       <section className="sh-intro">
         <div className="wrap">
-          <h1>Who shapes the water–energy–food nexus in Europe</h1>
+          <p className="eyebrow">Stakeholder map</p>
+          <h1>Who shapes the <em>water–energy–food nexus</em> in Europe</h1>
           <p className="sh-intro__lede">
             {stakeholders.length} organisations in {countries} countries. Hover over a marker for a summary, click it for
             the full profile. Lines join organisations that share EU-funded projects.
@@ -685,7 +686,7 @@ export const Stakeholders = () => {
                     key={l.key + (strong ? "-s" : dim ? "-d" : "")}
                     positions={l.pts}
                     pathOptions={{
-                      color: strong ? THEME_COLOR[l.project.theme] : "#14273a",
+                      color: strong ? THEME_COLOR[l.project.theme] : "#1c2432",
                       weight: strong ? 3 : 1.4,
                       opacity: strong ? 0.9 : dim ? 0.08 : 0.28,
                       dashArray: l.project.years.startsWith("2026") ? "4 6" : null,

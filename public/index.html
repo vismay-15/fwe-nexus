@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#14273a" />
-    <title>WEF Nexus Europe | Water–Energy–Food Nexus Research by Vismay Loliyaniya</title>
+    <meta name="theme-color" content="#1c2432" />
+    <title>WEF Nexus Europe | Water–Energy–Food Nexus Research | Vismay Loliyaniya</title>
     <meta
       name="description"
       content="Research by Vismay Loliyaniya on the drivers and governance of the water–energy–food (WEF) nexus in Europe, with an interactive map of 22 stakeholder organisations, conflict hotspots and open data."
@@ -13,8 +13,8 @@
     <link rel="canonical" href="https://www.vismayloliyaniya.com/fwe-nexus/" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="WEF Nexus Europe" />
-    <meta property="og:title" content="WEF Nexus Europe | Water–Energy–Food Nexus Research" />
+    <meta property="og:site_name" content="Vismay Loliyaniya" />
+    <meta property="og:title" content="WEF Nexus Europe | Water–Energy–Food Nexus Research | Vismay Loliyaniya" />
     <meta property="og:description" content="Drivers and governance of the water–energy–food nexus in Europe, with an interactive map of 22 organisations. Research by Vismay Loliyaniya." />
     <meta property="og:url" content="https://www.vismayloliyaniya.com/fwe-nexus/" />
     <meta property="og:image" content="https://www.vismayloliyaniya.com/fwe-nexus/og-image.png" />
@@ -33,6 +33,13 @@
         "@context": "https://schema.org",
         "@graph": [
           {
+            "@type": "WebSite",
+            "@id": "https://www.vismayloliyaniya.com/#website",
+            "name": "Vismay Loliyaniya",
+            "url": "https://www.vismayloliyaniya.com/",
+            "author": { "@id": "https://www.vismayloliyaniya.com/#person" }
+          },
+          {
             "@type": "Person",
             "@id": "https://www.vismayloliyaniya.com/#person",
             "name": "Vismay Loliyaniya",
@@ -42,12 +49,13 @@
             "knowsAbout": ["Water–energy–food nexus", "Water governance", "Stakeholder mapping", "Sustainable infrastructure", "Digital twins"]
           },
           {
-            "@type": "WebSite",
-            "@id": "https://www.vismayloliyaniya.com/fwe-nexus/#website",
+            "@type": "WebPage",
+            "@id": "https://www.vismayloliyaniya.com/fwe-nexus/#webpage",
             "name": "WEF Nexus Europe",
             "url": "https://www.vismayloliyaniya.com/fwe-nexus/",
             "description": "Research on the drivers and governance of the water–energy–food nexus in Europe, with an interactive stakeholder map.",
             "inLanguage": "en-GB",
+            "isPartOf": { "@id": "https://www.vismayloliyaniya.com/#website" },
             "author": { "@id": "https://www.vismayloliyaniya.com/#person" }
           }
         ]

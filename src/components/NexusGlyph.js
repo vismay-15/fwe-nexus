@@ -19,8 +19,8 @@ export const TYPE_CODES = {
   "Company / utility": "C",
 };
 
-const OFF = "#dbe3e5";
-const INK = "#14273a";
+const OFF = "#e4e1da";
+const INK = "#1c2432";
 
 function arc(cx, cy, r, a0, a1) {
   const p0 = [cx + r * Math.cos(a0), cy + r * Math.sin(a0)];
@@ -55,7 +55,7 @@ export function glyphSVG({ sectors = [], type, size = 36, state = "idle" }) {
       : state === "hover"
       ? `<circle cx="${c}" cy="${c}" r="${c - 1}" fill="#fff" stroke="${INK}" stroke-width="1" stroke-dasharray="2 2"/>`
       : `<circle cx="${c}" cy="${c}" r="${c - 1}" fill="#fff" fill-opacity="0.92"/>`;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">${halo}${segs}<circle cx="${c}" cy="${c}" r="${coreR}" fill="${INK}"/><text x="${c}" y="${c}" dy="0.36em" text-anchor="middle" font-family="Public Sans, sans-serif" font-weight="700" font-size="${(size * 0.24).toFixed(1)}" fill="#fff">${letter}</text></svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">${halo}${segs}<circle cx="${c}" cy="${c}" r="${coreR}" fill="${INK}"/><text x="${c}" y="${c}" dy="0.36em" text-anchor="middle" font-family="DM Sans, sans-serif" font-weight="700" font-size="${(size * 0.24).toFixed(1)}" fill="#fff">${letter}</text></svg>`;
 }
 
 export const NexusGlyph = ({ sectors, type, size = 36, state, title }) => (

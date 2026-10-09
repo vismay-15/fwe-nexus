@@ -91,7 +91,8 @@ export const Research = () => (
   <div className="research-page">
     <section className="section research-intro">
       <div className="wrap measure">
-        <h1>Drivers and governance of the water–energy–food nexus in Europe</h1>
+        <p className="eyebrow">The research</p>
+        <h1>Drivers and governance of the <em>water–energy–food nexus</em> in Europe</h1>
         <p className="lede">
           Technical solutions for managing water, energy and food together already exist. This research asks why they
           are so unevenly used, and argues that the main barrier is how responsibility is divided between sectors and
@@ -137,8 +138,8 @@ export const Research = () => (
             </div>
             <span className="fw__link" aria-hidden="true">
               <svg viewBox="0 0 36 14" width="36" height="14">
-                <line x1="6" y1="7" x2="30" y2="7" stroke="#66788a" strokeWidth="2" />
-                <path d="M0 7 L8 2 L8 12 Z M36 7 L28 2 L28 12 Z" fill="#66788a" />
+                <line x1="6" y1="7" x2="30" y2="7" stroke="#7a7568" strokeWidth="2" />
+                <path d="M0 7 L8 2 L8 12 Z M36 7 L28 2 L28 12 Z" fill="#7a7568" />
               </svg>
             </span>
             <div className="fw__col">
@@ -155,8 +156,8 @@ export const Research = () => (
             </div>
             <span className="fw__link" aria-hidden="true">
               <svg viewBox="0 0 36 14" width="36" height="14">
-                <line x1="6" y1="7" x2="30" y2="7" stroke="#66788a" strokeWidth="2" />
-                <path d="M0 7 L8 2 L8 12 Z M36 7 L28 2 L28 12 Z" fill="#66788a" />
+                <line x1="6" y1="7" x2="30" y2="7" stroke="#7a7568" strokeWidth="2" />
+                <path d="M0 7 L8 2 L8 12 Z M36 7 L28 2 L28 12 Z" fill="#7a7568" />
               </svg>
             </span>
             <div className="fw__col">

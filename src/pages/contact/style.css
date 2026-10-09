@@ -148,7 +148,7 @@
 
 .researcher__name a {
   color: var(--ink);
-  text-decoration-color: var(--water);
+  text-decoration-color: var(--teal);
   text-underline-offset: 3px;
 }
 

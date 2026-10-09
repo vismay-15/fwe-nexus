@@ -10,11 +10,12 @@
 }
 
 .hero__title {
-  font-size: clamp(2.4rem, 5.2vw, 4.1rem);
-  line-height: 1.04;
-  font-weight: 700;
+  font-size: clamp(2.3rem, 4.6vw, 3.6rem);
+  line-height: 1.06;
+  font-weight: 400;
+  letter-spacing: -0.025em;
   margin-bottom: 0.45em;
-  max-width: 16ch;
+  max-width: 19ch;
 }
 
 .hero__actions {
@@ -47,7 +48,7 @@
 .wheel__core-sub {
   font-family: var(--font-body);
   font-size: 12.5px;
-  fill: #c9d5df;
+  fill: rgba(255, 255, 255, 0.7);
 }
 
 .drivers {
@@ -109,7 +110,7 @@
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.15rem;
-  color: var(--water);
+  color: var(--teal);
 }
 
 .findings {
