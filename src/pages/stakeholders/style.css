@@ -73,12 +73,12 @@
 .explorer {
   display: grid;
   grid-template-columns: 330px 1fr;
-  height: calc(100vh - 64px);
+  height: calc(100vh - 113px);
   min-height: 520px;
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
   background: var(--paper);
-  scroll-margin-top: 64px;
+  scroll-margin-top: 120px;
 }
 
 .explorer__side {
