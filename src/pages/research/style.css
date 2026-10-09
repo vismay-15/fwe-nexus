@@ -86,7 +86,7 @@
   font-family: var(--font-body);
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--water);
+  color: var(--teal);
 }
 
 .case dt {
@@ -240,14 +240,14 @@
 
 .fw__persp {
   font-weight: 700;
-  color: var(--water);
+  color: var(--teal);
   font-size: 0.95rem;
   margin-bottom: 8px;
 }
 
 .fw__box {
-  background: #eef5fb;
-  border: 2px solid var(--water);
+  background: var(--teal-light);
+  border: 2px solid var(--teal);
   border-radius: 8px;
   padding: 12px 14px;
   font-size: 0.9rem;

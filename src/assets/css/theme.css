@@ -4,29 +4,40 @@
    and one colour per nexus sector (used consistently everywhere).
 ------------------------------------------------------------------- */
 :root {
-  --ground: #eef3f2;
+  /* Shared with vismayloliyaniya.com */
+  --ground: #f9f8f6;
   --paper: #ffffff;
-  --ink: #14273a;
-  --ink-2: #3c4f60;
-  --ink-3: #66788a;
-  --rule: #d5dee0;
+  --surface: #f2f0ec;
+  --ink: #1c2432;
+  --ink-2: #3e3b34;
+  --ink-3: #7a7568;
+  --rule: #e4e1da;
+  --rule-2: #cac6bc;
+  --teal: #0d5c4f;
+  --teal-mid: #1a7a69;
+  --teal-light: #e4f0ee;
+  --night: #0b0f16;
+
+  /* Map */
   --sea: #d6e6ee;
   --land: #fbfcfc;
   --border-land: #c3cfd3;
 
+  /* One colour per nexus sector (data only) */
   --water: #1f6fb2;
   --energy: #d9930f;
   --food: #4e8a3a;
   --ecosystems: #138a7e;
   --climate: #7a5ba6;
-  --off: #dbe3e5;
+  --off: #e4e1da;
 
-  --focus: #1f6fb2;
+  --focus: #0d5c4f;
   --radius-s: 4px;
-  --radius-m: 10px;
+  --radius-m: 8px;
 
   --font-display: "Playfair Display", Georgia, serif;
-  --font-body: "Public Sans", "Segoe UI", system-ui, sans-serif;
+  --font-body: "DM Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 }
 
 body {
@@ -47,8 +58,52 @@ h3 {
   letter-spacing: -0.01em;
 }
 
+h1,
+h2 {
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+h1 em,
+h2 em {
+  font-style: italic;
+  color: var(--teal);
+}
+
+/* Small monospace label above a heading, as on vismayloliyaniya.com */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 14px;
+}
+
+@media (max-width: 600px) {
+  .eyebrow {
+    letter-spacing: 0.22em;
+  }
+}
+
+.eyebrow::after {
+  content: "";
+  width: 36px;
+  height: 1px;
+  background: var(--teal);
+}
+
 a {
-  color: var(--water);
+  color: var(--teal);
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  color: var(--teal-mid);
 }
 
 a:focus-visible,
@@ -100,13 +155,16 @@ select:focus-visible,
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 11px 20px;
+  padding: 12px 24px;
   border-radius: var(--radius-s);
+  font-family: var(--font-body);
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   text-decoration: none;
-  border: 2px solid var(--ink);
-  transition: background 0.15s, color 0.15s;
+  border: 1px solid var(--ink);
+  transition: background 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
 }
 
 .btn-ink {
@@ -115,18 +173,24 @@ select:focus-visible,
 }
 
 .btn-ink:hover {
-  background: #0d1b29;
+  background: var(--teal);
+  border-color: var(--teal);
   color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(13, 92, 79, 0.25);
 }
 
 .btn-line {
   background: transparent;
-  color: var(--ink);
+  color: var(--ink-2);
+  border-color: var(--rule-2);
+  font-weight: 500;
 }
 
 .btn-line:hover {
-  background: var(--ink);
-  color: #fff;
+  background: transparent;
+  border-color: var(--teal);
+  color: var(--teal);
 }
 
 /* sector chips */
@@ -158,34 +222,104 @@ select:focus-visible,
 .sector-chip[data-sector="ecosystems"] { --chip: var(--ecosystems); }
 .sector-chip[data-sector="climate"] { --chip: var(--climate); }
 
-/* footer */
+/* footer — same as vismayloliyaniya.com */
 .site-footer {
   background: var(--ink);
-  color: #c9d5df;
-  padding: 40px 0;
-  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.62);
+  padding: 56px 0 0;
+  font-size: 0.92rem;
 }
 
 .site-footer a {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.site-footer a:hover {
   color: #fff;
 }
 
+.site-footer h2 {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 14px;
+}
+
+.site-footer__lead {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.site-footer li {
+  margin-bottom: 6px;
+}
+
 .site-footer__credits {
-  margin-top: 28px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  font-size: 0.8rem;
-  color: #9fb0bf;
+  margin-top: 36px;
+  padding: 18px 0 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.site-footer__credits a {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .site-footer__credits p {
   margin-bottom: 6px;
-  max-width: 110ch;
+  max-width: 120ch;
 }
 
-.site-footer h2 {
-  color: #fff;
-  font-size: 1.3rem;
+.site-footer__bar {
+  background: var(--night);
+}
+
+.site-footer__bar .bar-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px 24px;
+  flex-wrap: wrap;
+  padding: 22px 48px;
+}
+
+.foot-l {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.foot-l strong {
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 600;
+}
+
+.foot-r {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.foot-r a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+  .site-footer__bar .bar-inner {
+    padding: 16px 20px;
+    flex-direction: column;
+    text-align: center;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

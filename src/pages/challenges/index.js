@@ -290,7 +290,8 @@ export const Challenges = () => (
   <div className="challenges-page">
     <section className="section ch-intro">
       <div className="wrap measure">
-        <h1>Challenges and evidence</h1>
+        <p className="eyebrow">Evidence</p>
+        <h1>Challenges and <em>evidence</em></h1>
         <p className="lede">
           The pressures on Europe's water, energy and food systems, the figures behind them, and the places where they
           have turned into open conflict.

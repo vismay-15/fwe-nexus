@@ -162,7 +162,7 @@
 
 .chart__row.is-on rect:first-child,
 .chart__row:focus-visible rect:first-child {
-  fill: #eef3f2;
+  fill: var(--surface);
 }
 
 .chart__row:focus-visible {

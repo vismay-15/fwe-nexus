@@ -34,7 +34,7 @@ const NexusWheel = () => {
           </g>
         );
       })}
-      <circle cx={c} cy={c} r={92} fill="#14273a" />
+      <circle cx={c} cy={c} r={92} fill="#1c2432" />
       <text x={c} y={c - 8} textAnchor="middle" className="wheel__core">
         Governance
       </text>
@@ -72,7 +72,7 @@ const DRIVERS = [
   {
     title: "Changing EU policy",
     text: "The Water Framework Directive, the Green Deal, the CAP and the 2025 European Water Resilience Strategy overlap, creating both openings and conflicting mandates.",
-    accent: "#14273a",
+    accent: "#1c2432",
   },
 ];
 
@@ -98,7 +98,8 @@ export const Landing = () => {
       <section className="hero">
         <div className="wrap hero__grid">
           <div>
-            <h1 className="hero__title">Water, energy and food are one system. Their governance is not.</h1>
+            <p className="eyebrow">Research project</p>
+            <h1 className="hero__title">Water, energy and food are one system. <em>Their governance is not.</em></h1>
             <p className="lede measure">
               A research project on the drivers and institutions that shape how Europe manages the links between water,
               energy and food, and on what it would take to manage them together.
@@ -118,7 +119,8 @@ export const Landing = () => {
 
       <section className="section section--paper">
         <div className="wrap">
-          <h2>Why the nexus matters now</h2>
+          <p className="eyebrow">Context</p>
+          <h2>Why the nexus matters <em>now</em></h2>
           <p className="measure">
             No single resource is running out. The pressure comes from several changes hitting the same coupled
             systems at once, so a fix in one sector can shift cost or risk into another.
@@ -146,7 +148,8 @@ export const Landing = () => {
       <section className="section">
         <div className="wrap two-col">
           <div>
-            <h2>What the research asks</h2>
+            <p className="eyebrow">Research questions</p>
+            <h2>What the research <em>asks</em></h2>
             <p className="measure">
               The study compares how Spain and Germany govern the nexus. Spain faces chronic water scarcity and depends
               on irrigation; Germany is managing emerging drought alongside a fast energy transition in a federal
@@ -178,7 +181,8 @@ export const Landing = () => {
 
       <section className="section section--paper">
         <div className="wrap">
-          <h2>Emerging findings</h2>
+          <p className="eyebrow">Findings</p>
+          <h2>Emerging <em>findings</em></h2>
           <div className="findings">
             {FINDINGS.map((f) => (
               <div key={f.title} className="finding">
@@ -193,7 +197,8 @@ export const Landing = () => {
       <section className="section">
         <div className="wrap map-teaser">
           <div>
-            <h2>Map the people and organisations behind the nexus</h2>
+            <p className="eyebrow">Stakeholder map</p>
+            <h2>Map the people and organisations <em>behind the nexus</em></h2>
             <p className="measure">
               The stakeholder map profiles {stakeholders.length} organisations in {countries} countries: what each one
               works on, the projects it leads or joins, where its work is heading, and which of the others it works

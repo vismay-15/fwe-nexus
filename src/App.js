@@ -12,11 +12,11 @@ import { Footer } from "./components/Footer";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 
 const TITLES = {
-  "/": "WEF Nexus Europe | Water–Energy–Food Nexus Research by Vismay Loliyaniya",
-  "/research": "The research | WEF Nexus Europe",
-  "/challenges": "Challenges and evidence | WEF Nexus Europe",
-  "/stakeholders": "Stakeholder map | WEF Nexus Europe",
-  "/contact": "Contact Vismay Loliyaniya | WEF Nexus Europe",
+  "/": "WEF Nexus Europe | Water–Energy–Food Nexus Research | Vismay Loliyaniya",
+  "/research": "The research | WEF Nexus Europe | Vismay Loliyaniya",
+  "/challenges": "Challenges and evidence | WEF Nexus Europe | Vismay Loliyaniya",
+  "/stakeholders": "Stakeholder map | WEF Nexus Europe | Vismay Loliyaniya",
+  "/contact": "Contact | WEF Nexus Europe | Vismay Loliyaniya",
 };
 
 const ScrollToTop = () => {
