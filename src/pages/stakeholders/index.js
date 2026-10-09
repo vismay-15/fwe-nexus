@@ -4,7 +4,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { stakeholders, projects } from "../../data/stakeholders";
 import { hotspots } from "../../data/challenges";
-import { useSearchParams, Link } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { SECTORS, TYPE_CODES, glyphSVG, NexusGlyph } from "../../components/NexusGlyph";
 import { EuropeBase } from "./EuropeBase";
 import "./style.css";
@@ -311,7 +311,7 @@ const DetailPanel = ({ s, onClose, onSelect }) => {
         ))}
       </ul>
       <p className="detail__suggest">
-        <Link to={`/contact?topic=correction&about=${encodeURIComponent(s.name)}`}>Suggest a correction or addition to this profile</Link>
+        <a href={`/?topic=correction&about=${encodeURIComponent(s.name)}#contact`}>Suggest a correction or addition to this profile</a>
       </p>
     </aside>
   );
@@ -940,7 +940,7 @@ export const Stakeholders = () => {
           </p>
           <p className="muted mb-0">
             Profiles last reviewed October 2026. Know an organisation that should be here?{" "}
-            <Link to="/contact?topic=stakeholder">Suggest it</Link>.
+            <a href="/?topic=stakeholder#contact">Suggest it</a>.
           </p>
         </div>
       </section>

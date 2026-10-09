@@ -3,7 +3,6 @@ import { Stakeholders } from "./pages/stakeholders";
 import { Landing } from "./pages/landing";
 import { Research } from "./pages/research";
 import { Challenges } from "./pages/challenges";
-import { Contact } from "./pages/contact";
 import { HashRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import "./assets/css/style.css";
@@ -16,7 +15,17 @@ const TITLES = {
   "/research": "The research | WEF Nexus Europe | Vismay Loliyaniya",
   "/challenges": "Challenges and evidence | WEF Nexus Europe | Vismay Loliyaniya",
   "/stakeholders": "Stakeholder map | WEF Nexus Europe | Vismay Loliyaniya",
-  "/contact": "Contact | WEF Nexus Europe | Vismay Loliyaniya",
+};
+
+// Contact now lives on the main page; old links are sent there.
+const ContactRedirect = () => {
+  const { search } = useLocation();
+  useEffect(() => {
+    const q = new URLSearchParams(search);
+    if (!q.get("topic")) q.set("topic", "research");
+    window.location.replace(`/?${q.toString()}#contact`);
+  }, [search]);
+  return <p className="wrap" style={{ padding: "48px 0" }}>Opening the contact form…</p>;
 };
 
 const ScrollToTop = () => {
@@ -37,7 +46,7 @@ const Pages = () => {
         <Route path="/research" element={<Research />} />
         <Route path="/challenges" element={<Challenges />} />
         <Route path="/stakeholders" element={<Stakeholders />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/contact" element={<ContactRedirect />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<Landing />} />
       </Routes>
